@@ -1,0 +1,116 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+
+/*
+ * Svara design tokens.
+ * Primitives come from the Tailwind palette (slate, indigo, green, amber, red).
+ * Components use only the semantic tokens below, never a hue name.
+ * Align these with the shared Modul 13 tokens once they are agreed.
+ */
+@theme inline {
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-canvas: var(--color-slate-50);
+  --color-surface: var(--color-white);
+  --color-surface-muted: var(--color-slate-100);
+  --color-surface-inverse: var(--color-slate-900);
+
+  /* Text */
+  --color-fg: var(--color-slate-900);
+  --color-fg-muted: var(--color-slate-600);
+  --color-fg-inverse: var(--color-white);
+
+  /* Lines */
+  --color-line: var(--color-slate-200);
+  --color-line-input: var(--color-slate-500);
+
+  /* Accent: the one primary action per view, selection and focus */
+  --color-accent: var(--color-indigo-600);
+  --color-accent-hover: var(--color-indigo-700);
+  --color-accent-soft: var(--color-indigo-50);
+  --color-accent-soft-line: var(--color-indigo-200);
+  --color-accent-text: var(--color-indigo-700);
+  --color-accent-bar: var(--color-indigo-500);
+  --color-focus: var(--color-indigo-600);
+
+  /* Status */
+  --color-success-soft: var(--color-green-50);
+  --color-success-line: var(--color-green-200);
+  --color-success-text: var(--color-green-800);
+  --color-warning-soft: var(--color-amber-50);
+  --color-warning-line: var(--color-amber-200);
+  --color-warning-text: var(--color-amber-800);
+  --color-danger-soft: var(--color-red-50);
+  --color-danger-line: var(--color-red-200);
+  --color-danger-text: var(--color-red-700);
+  --color-danger: var(--color-red-600);
+  --color-danger-hover: var(--color-red-700);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Clears the sticky mobile header (logo row + nav row) so focus never hides under it. */
+    scroll-padding-block-start: 8rem;
+    color-scheme: light;
+  }
+
+  @media (min-width: 64rem) {
+    html {
+      scroll-padding-block-start: 2rem;
+    }
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  button,
+  label {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Press feedback: 0.96 over 150ms, only for people who allow motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .press:not(:disabled):not([aria-disabled="true"]):active {
+      scale: 0.96;
+    }
+  }
+  .press {
+    transition-property: scale, background-color, color, border-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+}
